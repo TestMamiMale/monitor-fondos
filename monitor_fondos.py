@@ -57,8 +57,8 @@ def send_email(subject, body):
     msg['From'] = EMAIL_FROM
     msg['To'] = EMAIL_TO
     try:
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-        server.starttls()
+        # Port 465 SSL
+        server = smtplib.SMTP_SSL(SMTP_SERVER, 465)
         server.login(EMAIL_FROM, SMTP_PASS)
         server.send_message(msg)
         server.quit()
