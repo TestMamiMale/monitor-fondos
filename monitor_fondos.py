@@ -1,9 +1,3 @@
-import requests
-import hashlib
-import time
-import smtplib
-from email.mime.text import MIMEText  # ← Corregido: mayúscula
-from bs4 import BeautifulSoup
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
