@@ -1,0 +1,35 @@
+# Python venv
+venv/
+nuevo_env/
+myenv/
+env/
+.env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# OS/Mac
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
