@@ -5,6 +5,8 @@ import smtplib
 from email.mime.text import MIMEText  # ← Corregido: mayúscula
 from bs4 import BeautifulSoup
 import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 # Tus configuraciones (mantengo las tuyas)
 URL = 'https://www.fondosdecultura.cl/resultados/'
@@ -52,19 +54,18 @@ def has_keywords(content):
     return False
 
 def send_email(subject, body):
-    msg = MIMEText(body)
-    msg['Subject'] = subject
-    msg['From'] = EMAIL_FROM
-    msg['To'] = EMAIL_TO
     try:
-        # Port 465 SSL
-        server = smtplib.SMTP_SSL(SMTP_SERVER, 465)
-        server.login(EMAIL_FROM, SMTP_PASS)
-        server.send_message(msg)
-        server.quit()
-        print("✅ Email enviado!")
+        sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
+        message = Mail(
+            from_email=os.getenv('EMAIL_FROM'),
+            to_emails=os.getenv('EMAIL_TO'),
+            subject=subject, 
+            plain_text=body
+        )
+        response = sg.send(message)
+        print(f"✅ Email OK - {response.status_code}")
     except Exception as e:
-        print(f"❌ Error email: {e}")
+        print(f"❌ Error SendGrid: {e}")
 
 # Loop principal
 print("🚀 Monitor Fondos Cultura iniciado. Ctrl+C para parar.")
